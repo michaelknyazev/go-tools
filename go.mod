@@ -1,4 +1,4 @@
-module github.com/michaelknyazev/gotools
+module github.com/michaelknyazev/go-tools
 
 go 1.17
 
