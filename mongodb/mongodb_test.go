@@ -10,5 +10,17 @@ import (
 func TestDatabaseInitializing(t *testing.T) {
 	testUri := os.Getenv("MONGO_URI")
 
-	db.Init(&testUri)
+	err := db.Init(&testUri)
+
+	if err != nil {
+		t.Fatal("Can't parse the mongo URI string")
+	}
+
+	err = db.Connect()
+
+	if err != nil {
+		t.Fatal("Can't connect to database.")
+	}
+
+	defer db.Disconnect()
 }
