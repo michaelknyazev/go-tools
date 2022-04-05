@@ -11,14 +11,14 @@ type DatabaseConfig struct {
 
 var configuration DatabaseConfig
 
-func Init(URI *string) error {
+func Init(URI string) error {
 	re, err := regexp.Compile(`mongodb\:\/\/(?P<user>([^"]*))\:(?P<password>([^"]*))\@(?P<host>([^"]*))\:(?P<port>([^"]*))\/(?P<database>([^"]*))`)
 
 	if err != nil {
 		return err
 	}
 
-	matches := re.FindStringSubmatch(*URI)
+	matches := re.FindStringSubmatch(URI)
 	names := re.SubexpNames()
 	result := make(map[string]string)
 
@@ -28,7 +28,7 @@ func Init(URI *string) error {
 		}
 	}
 
-	configuration = DatabaseConfig{Name: result["database"], URI: *URI}
+	configuration = DatabaseConfig{Name: result["database"], URI: URI}
 
 	return nil
 }

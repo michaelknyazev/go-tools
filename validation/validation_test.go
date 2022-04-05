@@ -1,15 +1,16 @@
 package validation_test
 
 import (
-	"github.com/michaelknyazev/go-tools/validation"
 	"testing"
+
+	"github.com/michaelknyazev/go-tools/validation"
 )
 
 type TestValidationStruct struct {
 	Name string `validation:"required"`
 }
 
-func TestValidationInitializing(t *testing.T) {
+func TestInit(t *testing.T) {
 	validation.Init()
 
 	testStruct := TestValidationStruct{"Michael"}
