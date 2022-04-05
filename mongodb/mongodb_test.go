@@ -1,4 +1,4 @@
-package gotools_test
+package mongodb_test
 
 import (
 	"os"
