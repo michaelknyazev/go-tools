@@ -19,7 +19,16 @@ func Init(URI *string) error {
 	}
 
 	matches := re.FindStringSubmatch(*URI)
-	configuration = DatabaseConfig{matches[5], *URI}
+	names := re.SubexpNames()
+	result := make(map[string]string)
+
+	for i, name := range names {
+		if name != "" {
+			result[name] = matches[i]
+		}
+	}
+
+	configuration = DatabaseConfig{Name: result["database"], URI: *URI}
 
 	return nil
 }
