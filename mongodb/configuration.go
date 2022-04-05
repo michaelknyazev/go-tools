@@ -1,6 +1,8 @@
-package database
+package mongodb
 
-import "os"
+import (
+	"regexp"
+)
 
 type DatabaseConfig struct {
 	Name string
@@ -9,14 +11,9 @@ type DatabaseConfig struct {
 
 var configuration DatabaseConfig
 
-func LoadConfiguration() {
-	dbHost := os.Getenv("DB_HOST")
-	dbPort := os.Getenv("DB_PORT")
-	dbName := os.Getenv("DB_NAME")
-	dbUser := os.Getenv("DB_USER")
-	dbPassword := os.Getenv("DB_PASSWORD")
+func Init(URI *string) {
+	re := regexp.MustCompile(`mongodb\:\/\/(?P<user>([^"]*))\:(?P<password>([^"]*))\@(?P<host>([^"]*))\:(?P<port>([^"]*))\/(?P<database>([^"]*))`)
+	matches := re.FindStringSubmatch(*URI)
 
-	var mongoUri string = "mongodb://" + dbUser + ":" + dbPassword + "@" + dbHost + ":" + dbPort + "/" + dbName
-
-	configuration = DatabaseConfig{dbName, mongoUri}
+	configuration = DatabaseConfig{matches[5], *URI}
 }

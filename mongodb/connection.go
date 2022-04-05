@@ -1,4 +1,4 @@
-package database
+package mongodb
 
 import (
 	"context"
@@ -12,10 +12,9 @@ import (
 var connection *mongo.Client
 
 func LoadConfigurationAndConnect() {
-	LoadConfiguration()
-
 	ctx := context.Background()
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(configuration.URI))
+
 	if err != nil {
 		log.Fatal(err)
 	}
