@@ -46,6 +46,8 @@ func TestCreateItem(t *testing.T) {
 	if err != nil {
 		t.Fatal("Can't create new item in database", err)
 	}
+}
 
+func TestDatabaseDisconnect(t *testing.T) {
 	defer db.Disconnect()
 }
