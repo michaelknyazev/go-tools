@@ -17,22 +17,17 @@ import (
 
 func main() {
 	uri := os.Getenv("MONGO_URI")
-	err := mongodb.Init(uri)
-
-	if err != nil {
+	
+	if err := mongodb.Init(uri); err != nil {
 		panic(err)
 	}
 
-	err = mongodb.Connect()
-
-	if err != nil {
+	if err := mongodb.Connect(); err != nil {
 		panic(err)
 	}
 
 	defer func() {
-		err := mongodb.Disconnect()
-
-		if err != nil {
+		if err := mongodb.Disconnect(); err != nil {
 			panic(err)
 		}
 	}()
