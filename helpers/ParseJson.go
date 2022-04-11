@@ -14,5 +14,7 @@ func ParseJsonFile(path string) ([]byte, error) {
 
 	byteVal, _ := ioutil.ReadAll(content)
 
+	defer content.Close()
+
 	return []byte(byteVal), err
 }
