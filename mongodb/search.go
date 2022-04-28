@@ -8,7 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func SearchTextIndex(collection *mongo.Collection, query string) ([]interface{}, error) {
+func SearchTextIndex(collection *mongo.Collection, query string) ([]map[string]interface{}, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -20,7 +20,7 @@ func SearchTextIndex(collection *mongo.Collection, query string) ([]interface{},
 		return nil, err
 	}
 
-	var result []interface{}
+	var result []map[string]interface{}
 
 	if err := cursor.All(ctx, &result); err != nil {
 		return nil, err
