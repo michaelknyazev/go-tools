@@ -22,6 +22,19 @@ func CreateItem(collection *mongo.Collection, body interface{}) (interface{}, er
 	return body, nil
 }
 
+func CreateMany(collection *mongo.Collection, items []interface{}) (interface{}, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	result, err := collection.InsertMany(ctx, items)
+
+	if err != nil {
+		return result, err
+	}
+
+	return items, nil
+}
+
 func ReadItemByID(collection *mongo.Collection, itemId string) *mongo.SingleResult {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
