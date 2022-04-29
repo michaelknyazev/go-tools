@@ -57,3 +57,18 @@ func TestSearchIndex(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestSearchTextField(t *testing.T) {
+	TestConnect(t)
+
+	defer TestDatabaseDisconnect(t)
+
+	query := "sword"
+	field := "content"
+
+	_, err := mongodb.SearchTextField(getTestCollection(), field, query)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+}
